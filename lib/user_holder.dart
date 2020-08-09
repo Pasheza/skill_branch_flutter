@@ -52,5 +52,13 @@ class UserHolder {
       throw Exception("${user.login} is not a friend of the login");
   }
 
-  void importUsers() {}
+  List<User> importUsers(List<String> csv) {
+    List<User> users = [];
+    csv.forEach((element) {
+      List<String> list = element.split(";");
+      users.add(User(
+          name: list[0].trim(), email: list[1].trim(), phone: list[2].trim()));
+    });
+    return users;
+  }
 }
