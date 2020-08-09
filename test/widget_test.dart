@@ -75,62 +75,62 @@ void main() {
     });
   });
 
-  // test('setFriends', () {
-  //   User user = User(
-  //       name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
-  //   holder.users[user.login] = user;
+  test('setFriends', () {
+    User user = User(
+        name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
+    holder.users[user.login] = user;
 
-  //   List<User> friends = [
-  //     User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
-  //     User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
-  //   ];
+    List<User> friends = [
+      User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
+      User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
+    ];
 
-  //   holder.setFriends(user.login, friends);
+    holder.setFriends(user.login, friends);
 
-  //   expect(2, holder.users[user.login].friends.length);
+    expect(2, holder.users[user.login].friends.length);
 
-  //   expect(friends[0].email, holder.users[user.login].friends[0].email);
-  //   expect(friends[0].login, holder.users[user.login].friends[0].login);
-  //   expect(friends[0].phone, holder.users[user.login].friends[0].phone);
+    expect(friends[0].email, holder.users[user.login].friends[0].email);
+    expect(friends[0].login, holder.users[user.login].friends[0].login);
+    expect(friends[0].phone, holder.users[user.login].friends[0].phone);
 
-  //   expect(friends[1].email, holder.users[user.login].friends[1].email);
-  //   expect(friends[1].login, holder.users[user.login].friends[1].login);
-  //   expect(friends[1].phone, holder.users[user.login].friends[1].phone);
-  // });
+    expect(friends[1].email, holder.users[user.login].friends[1].email);
+    expect(friends[1].login, holder.users[user.login].friends[1].login);
+    expect(friends[1].phone, holder.users[user.login].friends[1].phone);
+  });
 
-  // group('findUserInFriends', () {
-  //   test('findUserInFriends', () {
-  //     User user = User(
-  //         name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
-  //     holder.users[user.login] = user;
+  group('findUserInFriends', () {
+    test('findUserInFriends', () {
+      User user = User(
+          name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
+      holder.users[user.login] = user;
 
-  //     List<User> friends = [
-  //       User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
-  //       User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
-  //     ];
+      List<User> friends = [
+        User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
+        User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
+      ];
 
-  //     holder.setFriends(user.login, friends);
+      holder.setFriends(user.login, friends);
 
-  //     expect(friends[0], holder.findUserInFriends(user.login, friends[0]));
-  //     expect(friends[1], holder.findUserInFriends(user.login, friends[1]));
-  //   });
+      expect(friends[0], holder.findUserInFriends(user.login, friends[0]));
+      expect(friends[1], holder.findUserInFriends(user.login, friends[1]));
+    });
 
-  //   test('findUserInFriends exception', () {
-  //     User user = User(
-  //         name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
-  //     holder.users[user.login] = user;
+    test('findUserInFriends exception', () {
+      User user = User(
+          name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
+      holder.users[user.login] = user;
 
-  //     List<User> friends = [
-  //       User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
-  //       User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
-  //     ];
+      List<User> friends = [
+        User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
+        User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
+      ];
 
-  //     expect(() => holder.findUserInFriends(user.login, friends[0]),
-  //         throwsA(isA<Exception>()));
-  //     expect(() => holder.findUserInFriends(user.login, friends[1]),
-  //         throwsA(isA<Exception>()));
-  //   });
-  // });
+      expect(() => holder.findUserInFriends(user.login, friends[0]),
+          throwsA(isA<Exception>()));
+      expect(() => holder.findUserInFriends(user.login, friends[1]),
+          throwsA(isA<Exception>()));
+    });
+  });
 
   // test('Test: UserHolder.importUsers()', () {
   //   User user = User(

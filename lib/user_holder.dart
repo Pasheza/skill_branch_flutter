@@ -36,4 +36,21 @@ class UserHolder {
     users[user.login] = user;
     return user;
   }
+
+  void setFriends(String login, List<User> friends) {
+    User user = getUserByLogin(login);
+    user.addFriends(friends);
+  }
+
+  User findUserInFriends(String login, User searchedFriend) {
+    User user = getUserByLogin(login);
+    int index = user.friends.indexWhere((friend) => friend == searchedFriend);
+    print("INDEX: $index");
+    if (index >= 0)
+      return user.friends[index];
+    else
+      throw Exception("${user.login} is not a friend of the login");
+  }
+
+  void importUsers() {}
 }

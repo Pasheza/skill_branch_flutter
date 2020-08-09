@@ -37,8 +37,12 @@ class User {
 
   factory User({String name, String phone, String email}) {
     if (name.isEmpty) throw Exception("User name is empty");
-    if (phone.isEmpty || email.isEmpty)
-      throw Exception("User phone or email is empty");
+    if (phone == null && email == null)
+      throw Exception("User phone and email are empty");
+    if (phone == null && email != null)
+      return User.byEmail(name: name, email: email);
+    if (phone != null && email == null)
+      return User.byPhone(name: name, phone: phone);
 
     return User._(
         firstName: _getFirstName(name),
@@ -91,7 +95,7 @@ class User {
     }
   }
 
-  void addFriend(Iterable<User> newFriends) {
+  void addFriends(Iterable<User> newFriends) {
     friends.addAll(newFriends);
   }
 
