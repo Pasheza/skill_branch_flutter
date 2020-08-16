@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:skill_branch_flutter/res/res.dart';
-import 'package:skill_branch_flutter/widgets/widgets.dart';
+import 'photo_screen.dart';
+import '../res/res.dart';
+import '../widgets/widgets.dart';
 
 const String kFlutterDash =
-    'https://miro.medium.com/max/664/1*Xm96KtLeIAAMtAYWcr1-MA.png';
+    'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
 
 class Feed extends StatefulWidget {
   Feed({Key key}) : super(key: key);
@@ -22,7 +23,7 @@ class _FeedState extends State<Feed> {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Column(children: <Widget>[
-              _buildItem(),
+              _buildItem(context),
               Divider(
                 thickness: 2,
                 color: AppColors.mercury,
@@ -33,11 +34,22 @@ class _FeedState extends State<Feed> {
   }
 }
 
-Widget _buildItem() {
+Widget _buildItem(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Photo(photoLink: kFlutterDash),
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FullScreenImage(
+                          photo: kFlutterDash,
+                          altDescription: 'This is flutter Dash. I love him',
+                          userName: 'kaparray',
+                        )));
+          },
+          child: Photo(photoLink: kFlutterDash)),
       _buildPhotoMeta(),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -76,7 +88,7 @@ Widget _buildPhotoMeta() {
             )
           ],
         ),
-        LikeButton(10, true)
+        LikeButton(likeCount: 10, isLiked: true)
       ],
     ),
   );
