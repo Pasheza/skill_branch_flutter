@@ -50,7 +50,13 @@ class _FullScreenImageState extends State<FullScreenImage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              LikeButton(likeCount: 10, isLiked: true),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Container(
+                    width: 105,
+                    height: 36,
+                    child: LikeButton(likeCount: 10, isLiked: true)),
+              ),
               _buildButton('Save'),
               _buildButton('Visit')
             ],

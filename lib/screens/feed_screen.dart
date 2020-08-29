@@ -44,16 +44,16 @@ Widget _buildItem(BuildContext context) {
                 context,
                 MaterialPageRoute(
                     builder: (context) => FullScreenImage(
-                          photo: kFlutterDash,
-                          altDescription: 'This is flutter Dash. I love him',
-                          userName: 'kaparray',
-                        )));
+                        photo: kFlutterDash,
+                        altDescription: 'This is flutter Dash. I love him',
+                        userName: 'kaparray',
+                        name: 'Kirill Adechenko')));
           },
           child: Photo(photoLink: kFlutterDash)),
       _buildPhotoMeta(),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Text('This is flutter Dash. I love him',
+        child: Text('This is flutter Dash. I love him :)',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: AppStyles.h3.copyWith(color: AppColors.black)),
@@ -77,7 +77,7 @@ Widget _buildPhotoMeta() {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Kirill Adechenko',
+                  'Kirill Adeshchenko',
                   style: AppStyles.h2Black,
                 ),
                 Text(
