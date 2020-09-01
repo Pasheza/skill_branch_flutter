@@ -4,18 +4,20 @@ import 'package:skill_branch_flutter/res/res.dart';
 import 'package:skill_branch_flutter/widgets/widgets.dart';
 
 class FullScreenImage extends StatefulWidget {
-  FullScreenImage(
-      {Key key,
-      this.photo = '',
-      this.altDescription = '',
-      this.userName = '',
-      this.name = ''})
-      : super(key: key);
+  FullScreenImage({
+    Key key,
+    this.photo = '',
+    this.altDescription = '',
+    this.userName = '',
+    this.name = '',
+    this.heroTag,
+  }) : super(key: key);
 
   final String photo;
   final String altDescription;
   final String userName;
   final String name;
+  final String heroTag;
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
 }
@@ -44,7 +46,10 @@ class _FullScreenImageState extends State<FullScreenImage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Photo(photoLink: widget.photo),
+          Photo(
+            photoLink: widget.photo,
+            heroTag: widget.heroTag,
+          ),
           _buildDescription(widget.altDescription),
           _buildPhotoMeta(widget.userName, widget.name),
           Row(

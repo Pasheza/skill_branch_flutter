@@ -23,7 +23,7 @@ class _FeedState extends State<Feed> {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Column(children: <Widget>[
-              _buildItem(context),
+              _buildItem(context, index),
               Divider(
                 thickness: 2,
                 color: AppColors.mercury,
@@ -34,7 +34,7 @@ class _FeedState extends State<Feed> {
   }
 }
 
-Widget _buildItem(BuildContext context) {
+Widget _buildItem(BuildContext context, int index) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -44,12 +44,17 @@ Widget _buildItem(BuildContext context) {
                 context,
                 MaterialPageRoute(
                     builder: (context) => FullScreenImage(
-                        photo: kFlutterDash,
-                        altDescription: 'This is flutter Dash. I love him',
-                        userName: 'kaparray',
-                        name: 'Kirill Adechenko')));
+                          photo: kFlutterDash,
+                          altDescription: 'This is flutter Dash. I love him',
+                          userName: 'kaparray',
+                          name: 'Kirill Adechenko',
+                          heroTag: 'photoTag' + index.toString(),
+                        )));
           },
-          child: Photo(photoLink: kFlutterDash)),
+          child: Photo(
+            photoLink: kFlutterDash,
+            heroTag: 'photoTag' + index.toString(),
+          )),
       _buildPhotoMeta(),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
