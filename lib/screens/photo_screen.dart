@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:skill_branch_flutter/res/res.dart';
-import 'package:skill_branch_flutter/widgets/widgets.dart';
+import '../res/res.dart';
+import '../widgets/widgets.dart';
 
 class FullScreenImage extends StatefulWidget {
   FullScreenImage({
@@ -11,6 +11,7 @@ class FullScreenImage extends StatefulWidget {
     this.userName = '',
     this.name = '',
     this.heroTag,
+    this.userPhoto = '',
   }) : super(key: key);
 
   final String photo;
@@ -18,6 +19,7 @@ class FullScreenImage extends StatefulWidget {
   final String userName;
   final String name;
   final String heroTag;
+  final String userPhoto;
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
 }
@@ -51,7 +53,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
             heroTag: widget.heroTag,
           ),
           _buildDescription(widget.altDescription),
-          _buildPhotoMeta(widget.userName, widget.name),
+          _buildPhotoMeta(widget.userName, widget.name, widget.userPhoto),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +81,7 @@ Widget _buildDescription(String description) {
           maxLines: 3, overflow: TextOverflow.ellipsis, style: AppStyles.h3));
 }
 
-Widget _buildPhotoMeta(String userName, String name) {
+Widget _buildPhotoMeta(String userName, String name, String userPhoto) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     child: Row(
@@ -87,7 +89,7 @@ Widget _buildPhotoMeta(String userName, String name) {
       children: <Widget>[
         Row(
           children: [
-            UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+            UserAvatar(userPhoto),
             SizedBox(width: 6),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

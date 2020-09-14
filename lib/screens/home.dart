@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skill_branch_flutter/res/res.dart';
+import '../res/res.dart';
 
 import 'feed_screen.dart';
 

@@ -6,6 +6,7 @@ import '../widgets/widgets.dart';
 
 const String kFlutterDash =
     'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
+const String userPhoto = 'https://skill-branch.ru/img/speakers/Adechenko.jpg';
 
 class Feed extends StatefulWidget {
   Feed({Key key}) : super(key: key);
@@ -49,6 +50,7 @@ Widget _buildItem(BuildContext context, int index) {
                           userName: 'kaparray',
                           name: 'Kirill Adechenko',
                           heroTag: 'photoTag' + index.toString(),
+                          userPhoto: userPhoto,
                         )));
           },
           child: Photo(
@@ -75,7 +77,7 @@ Widget _buildPhotoMeta() {
       children: <Widget>[
         Row(
           children: [
-            UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+            UserAvatar(userPhoto),
             SizedBox(width: 6),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

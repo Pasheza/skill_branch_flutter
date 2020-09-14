@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skill_branch_flutter/screens/home.dart';
+import 'screens/home.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
