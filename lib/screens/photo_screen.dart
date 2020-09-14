@@ -24,7 +24,33 @@ class FullScreenImage extends StatefulWidget {
   _FullScreenImageState createState() => _FullScreenImageState();
 }
 
-class _FullScreenImageState extends State<FullScreenImage> {
+class _FullScreenImageState extends State<FullScreenImage>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 1500), vsync: this);
+    _playAnimation();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playAnimation() async {
+    try {
+      await _controller.forward().orCancel;
+    } on TickerCanceled {
+      // the animation got canceled, probably because we were disposed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +74,19 @@ class _FullScreenImageState extends State<FullScreenImage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Photo(
-            photoLink: widget.photo,
-            heroTag: widget.heroTag,
+          Hero(
+            tag: widget.heroTag,
+            child: Photo(
+              photoLink: widget.photo,
+            ),
           ),
           _buildDescription(widget.altDescription),
-          _buildPhotoMeta(widget.userName, widget.name, widget.userPhoto),
+          PhotoMetaStaggerAnimation(
+            controller: _controller,
+            userName: widget.userName,
+            name: widget.userName,
+            userPhoto: widget.userPhoto,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,35 +114,93 @@ Widget _buildDescription(String description) {
           maxLines: 3, overflow: TextOverflow.ellipsis, style: AppStyles.h3));
 }
 
-Widget _buildPhotoMeta(String userName, String name, String userPhoto) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Row(
-          children: [
-            UserAvatar(userPhoto),
-            SizedBox(width: 6),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  name,
-                  style: AppStyles.h2Black,
+class PhotoMetaStaggerAnimation extends StatelessWidget {
+  PhotoMetaStaggerAnimation({
+    Key key,
+    this.controller,
+    this.userName,
+    this.name,
+    this.userPhoto,
+  })  : avatarOpacity = Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(
+              0.0,
+              0.5,
+              curve: Curves.ease,
+            ),
+          ),
+        ),
+        headerOpacity = Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(
+              0.5,
+              1.0,
+              curve: Curves.ease,
+            ),
+          ),
+        ),
+        super(key: key);
+
+  final Animation<double> controller;
+  final Animation<double> avatarOpacity;
+  final Animation<double> headerOpacity;
+  final String userName;
+  final String name;
+  final String userPhoto;
+
+  Widget _buildAnimation(BuildContext context, Widget child) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: [
+              Opacity(
+                opacity: avatarOpacity.value,
+                child: UserAvatar(userPhoto),
+              ),
+              SizedBox(width: 6),
+              Opacity(
+                opacity: headerOpacity.value,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      name,
+                      style: AppStyles.h2Black,
+                    ),
+                    Text(
+                      '@$userName',
+                      style:
+                          AppStyles.h5Black.copyWith(color: AppColors.manatee),
+                    )
+                  ],
                 ),
-                Text(
-                  '@$userName',
-                  style: AppStyles.h5Black.copyWith(color: AppColors.manatee),
-                )
-              ],
-            )
-          ],
-        )
-      ],
-    ),
-  );
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      builder: _buildAnimation,
+      animation: controller,
+    );
+  }
 }
 
 Widget _buildButton(String text) {

@@ -53,9 +53,11 @@ Widget _buildItem(BuildContext context, int index) {
                           userPhoto: userPhoto,
                         )));
           },
-          child: Photo(
-            photoLink: kFlutterDash,
-            heroTag: 'photoTag' + index.toString(),
+          child: Hero(
+            tag: 'photoTag' + index.toString(),
+            child: Photo(
+              photoLink: kFlutterDash,
+            ),
           )),
       _buildPhotoMeta(),
       Padding(
